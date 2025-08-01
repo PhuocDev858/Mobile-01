@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email"
-            android:inputType="phone" />
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/txtPass"
@@ -41,5 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đăng kí" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,8 +31,25 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(it);
+                EditText objMail = findViewById(R.id.txtMail);
+                String txtMail = objMail.getText().toString();
+
+                EditText objPass = findViewById(R.id.txtPass);
+                String txtPass = objPass.getText().toString();
+
+                CharSequence text = "Đăng nhập thất bại!";
+                int duration = Toast.LENGTH_SHORT;
+
+                if (txtMail.equals("test01@gmail.com") && txtPass.equals("123456"))
+                {
+                    Intent it = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(it);
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                    toast.show();
+                }
             }
         });
 
