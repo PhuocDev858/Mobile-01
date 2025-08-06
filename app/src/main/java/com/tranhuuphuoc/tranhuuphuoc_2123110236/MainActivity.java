@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView tvGreeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +27,21 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button btnBack = findViewById(R.id.btnBack);
+        // GÁN TV trước khi dùng!
+        tvGreeting = findViewById(R.id.tvGreeting);
 
+        // Nhận dữ liệu từ Intent
+        Intent intent = getIntent();
+        String txtMail = intent.getStringExtra("mail");
+        String txtPass = intent.getStringExtra("pass");
+
+        // Hiển thị chào người dùng
+        if (txtMail != null) {
+            tvGreeting.setText("Xin chào " + txtMail);
+        }
+
+        // Nút quay lại Login
+        Button btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (txtMail.equals("test01@gmail.com") && txtPass.equals("123456"))
                 {
                     Intent it = new Intent(getApplicationContext(),MainActivity.class);
+                    it.putExtra("mail", txtMail);
                     startActivity(it);
                 }
                 else
