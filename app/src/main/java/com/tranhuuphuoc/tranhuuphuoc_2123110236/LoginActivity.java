@@ -13,55 +13,92 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private EditText edtEmail, edtPass;
+    private Button btnLogin, btnRegister;
+    private String apiUrl = "https://68930efec49d24bce8693cb2.mockapi.io/phuocdev/v1/users"; // GIẢ LẬP API (bạn thay bằng URL của bạn)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        Button btnLogin = findViewById(R.id.btnLogin);
+        edtEmail = findViewById(R.id.txtMail);
+        edtPass = findViewById(R.id.txtPass);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnRegister = findViewById(R.id.btnRegister);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText objMail = findViewById(R.id.txtMail);
-                String txtMail = objMail.getText().toString();
+        btnLogin.setOnClickListener(v -> {
+            String email = edtEmail.getText().toString().trim();
+            String password = edtPass.getText().toString().trim();
 
-                EditText objPass = findViewById(R.id.txtPass);
-                String txtPass = objPass.getText().toString();
-
-                CharSequence text = "Đăng nhập thất bại!";
-                int duration = Toast.LENGTH_SHORT;
-
-                if (txtMail.equals("test01@gmail.com") && txtPass.equals("123456"))
-                {
-                    Intent it = new Intent(getApplicationContext(),MainActivity.class);
-                    it.putExtra("mail", txtMail);
-                    startActivity(it);
-                }
-                else
-                {
-                    Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-                    toast.show();
-                }
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            checkLogin(email, password);
         });
 
-        Button btnRegis = findViewById(R.id.btnRegister);
-
-        btnRegis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(getApplicationContext(),RegisterActivity.class);
-                startActivity(it);
-            }
+        btnRegister.setOnClickListener(v -> {
+            Intent it = new Intent(getApplicationContext(), RegisterActivity.class);
+            startActivity(it);
         });
+    }
+
+    private void checkLogin(String email, String password) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest request = new StringRequest(Request.Method.GET, apiUrl,
+                response -> {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        boolean isMatch = false;
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject user = jsonArray.getJSONObject(i);
+                            String apiEmail = user.getString("email");
+                            String apiPass = user.getString("password");
+
+                            if (email.equals(apiEmail) && password.equals(apiPass)) {
+                                isMatch = true;
+                                break;
+                            }
+                        }
+
+                        if (isMatch) {
+                            Intent it = new Intent(getApplicationContext(), HomeActivity    .class);
+                            it.putExtra("mail", email);
+                            startActivity(it);
+                            Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Lỗi xử lý dữ liệu!", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(this, "Lỗi kết nối API!", Toast.LENGTH_SHORT).show()
+        );
+
+        queue.add(request);
     }
 }
