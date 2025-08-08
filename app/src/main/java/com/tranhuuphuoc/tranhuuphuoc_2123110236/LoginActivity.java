@@ -2,9 +2,9 @@ package com.tranhuuphuoc.tranhuuphuoc_2123110236;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -39,10 +39,10 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        edtEmail = findViewById(R.id.txtMail);
+        edtEmail = findViewById(R.id.txtMailorPhone);
         edtPass = findViewById(R.id.txtPass);
         btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
+        TextView txtRegister = findViewById(R.id.txtRegisterPrompt);
 
         btnLogin.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
@@ -56,13 +56,13 @@ public class LoginActivity extends AppCompatActivity {
             checkLogin(email, password);
         });
 
-        btnRegister.setOnClickListener(v -> {
-            Intent it = new Intent(getApplicationContext(), RegisterActivity.class);
-            startActivity(it);
+        txtRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 
-    private void checkLogin(String email, String password) {
+    private void checkLogin(String emailOrPhone, String password) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest request = new StringRequest(Request.Method.GET, apiUrl,
@@ -74,21 +74,24 @@ public class LoginActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject user = jsonArray.getJSONObject(i);
                             String apiEmail = user.getString("email");
+                            String apiPhone = user.getString("phone");
                             String apiPass = user.getString("password");
 
-                            if (email.equals(apiEmail) && password.equals(apiPass)) {
+                            // So sánh: nhập email hoặc số điện thoại
+                            if ((emailOrPhone.equals(apiEmail) || emailOrPhone.equals(apiPhone))
+                                    && password.equals(apiPass)) {
                                 isMatch = true;
                                 break;
                             }
                         }
 
                         if (isMatch) {
-                            Intent it = new Intent(getApplicationContext(), HomeActivity    .class);
-                            it.putExtra("mail", email);
+                            Intent it = new Intent(getApplicationContext(), HomeActivity.class);
+                            it.putExtra("mailOrPhone", emailOrPhone);
                             startActivity(it);
                             Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Sai thông tin đăng nhập!", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {

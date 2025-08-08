@@ -14,59 +14,110 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo_shop"
+            android:layout_gravity="center"
+            android:contentDescription="Logo cửa hàng"
+            android:layout_marginTop="24dp"/>
+
         <TextView
             android:id="@+id/txtViewRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:text="TextView"
+            android:text="ĐĂNG KÝ TÀI KHOẢN"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="24sp"
-            tools:text="ĐĂNG KÝ TÀI KHOẢN" />
+             />
+
+        <EditText
+            android:id="@+id/txtName"
+            style="@style/CustomEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Họ tên"
+            android:drawableStart="@drawable/ic_user"/>
 
         <EditText
             android:id="@+id/txtEmail"
+            style="@style/CustomEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="3dp"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:drawableStart="@drawable/ic_email"/>
 
         <EditText
             android:id="@+id/phoneNum"
+            style="@style/CustomEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:ems="10"
             android:hint="Số điện thoại"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:drawableStart="@drawable/ic_phone"/>
 
         <EditText
             android:id="@+id/Pass"
+            style="@style/CustomEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:ems="10"
             android:hint="Mật khẩu"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:drawableStart="@drawable/ic_lock"/>
 
         <EditText
             android:id="@+id/PassConfirm"
+            style="@style/CustomEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:ems="10"
             android:hint="Xác nhận mật khẩu"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:drawableStart="@drawable/ic_lock"/>
 
-        <Button
-            android:id="@+id/btnAccept"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đăng kí" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
 
-        <Button
-            android:id="@+id/btnBack2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quay lại" />
+            <Button
+                android:id="@+id/btnAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded"
+                android:text="Đăng kí"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnBack2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded"
+                android:text="Quay lại"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
