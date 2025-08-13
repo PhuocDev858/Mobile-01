@@ -1,5 +1,6 @@
 package com.tranhuuphuoc.tranhuuphuoc_2123110236;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -24,9 +25,10 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText edtEmail, edtPass;
-    private Button btnLogin, btnRegister;
+    private Button btnLogin, btnTest;
     private String apiUrl = "https://68930efec49d24bce8693cb2.mockapi.io/phuocdev/v1/users"; // GIẢ LẬP API (bạn thay bằng URL của bạn)
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
