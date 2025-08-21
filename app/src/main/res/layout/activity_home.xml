@@ -5,9 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     tools:context=".HomeActivity">
 
-    <!-- Thanh top: Logo - Search - Profile -->
+    <!-- Thanh top -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -19,27 +20,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Logo -->
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:src="@drawable/logo_shop"
             android:contentDescription="Logo Shop"
             android:adjustViewBounds="true" />
 
-        <!-- Thanh tìm kiếm -->
-        <EditText
-            android:id="@+id/searchBar"
-            android:background="@drawable/bg_search"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="8dp"
-            android:hint="Tìm kiếm"
-            android:paddingStart="12dp"
-            android:inputType="text" />
+            android:background="@drawable/bg_search"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp">
 
-        <!-- Icon profile -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_search"
+                android:layout_marginEnd="6dp"
+                app:tint="#888888" />
+
+            <EditText
+                android:id="@+id/searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="Tìm kiếm"
+                android:inputType="text"
+                android:padding="0dp"
+                android:textSize="14sp" />
+        </LinearLayout>
+
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -60,322 +75,100 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Danh mục -->
-    <GridLayout
-        android:id="@+id/categoryGrid"
+    <!-- Nội dung cuộn -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:columnCount="4"
-        android:padding="8dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/banner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView">
 
-        <!-- Ví dụ 1 danh mục -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_category_item"
-            android:layout_columnWeight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:paddingBottom="70dp"> <!-- để tránh taskbar che nội dung cuối -->
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_laptop"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Grid Danh mục -->
+            <GridLayout
+                android:id="@+id/categoryGrid"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Laptop"
-                android:textSize="14sp" />
+                android:columnCount="4"
+                android:padding="8dp"
+                android:background="#FFFFFF"
+                android:elevation="2dp">
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_category_item"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_computer"
-                android:scaleType="centerCrop" />
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_laptop"
+                        android:scaleType="centerInside" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Laptop"
+                        android:textSize="13sp"
+                        android:textColor="#333333" />
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_phone"
+                        android:scaleType="centerInside" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Điện thoại"
+                        android:textSize="13sp"
+                        android:textColor="#333333" />
+                </LinearLayout>
+            </GridLayout>
+
+            <!-- Grid Sản phẩm -->
+            <GridLayout
+                android:id="@+id/productGrid"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PC"
-                android:textSize="14sp" />
-
+                android:columnCount="2"
+                android:padding="8dp" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_category_item"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+    </androidx.core.widget.NestedScrollView>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_smartphone"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Điện thoại"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_category_item"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_console"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Console"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-
-        <!-- Thêm các danh mục khác -->
-    </GridLayout>
-    <GridLayout
-        android:id="@+id/productGrid"
+    <!-- Taskbar dưới cùng -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:padding="8dp"
-        android:layout_marginTop="8dp"
-        android:background="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/categoryGrid"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Sản phẩm 1 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:background="@drawable/bg_product_item">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:src="@drawable/laptop"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Laptop Gaming"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp" />
-
-            <!-- Giá + giỏ hàng -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="25.000.000đ"
-                    android:textColor="#FF0000"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/btnAddCart1"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_cart"
-                    android:tint="#FFFFFF"
-                    android:background="@drawable/bg_cart_button"
-                    android:padding="6dp"
-                    android:contentDescription="Thêm vào giỏ" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Sản phẩm 2 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:background="@drawable/bg_product_item">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:src="@drawable/smartphone"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Điện thoại"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="15.000.000đ"
-                    android:textColor="#FF0000"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/btnAddCart2"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_cart"
-                    android:tint="#FFFFFF"
-                    android:background="@drawable/bg_cart_button"
-                    android:padding="6dp"
-                    android:contentDescription="Thêm vào giỏ" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Sản phẩm 3 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:background="@drawable/bg_product_item">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:src="@drawable/computer"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PC"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="55.000.000đ"
-                    android:textColor="#FF0000"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/btnAddCart3"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_cart"
-                    android:tint="#FFFFFF"
-                    android:background="@drawable/bg_cart_button"
-                    android:padding="6dp"
-                    android:contentDescription="Thêm vào giỏ" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Sản phẩm 4 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:background="@drawable/bg_product_item">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:src="@drawable/console"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PS5"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="12.000.000đ"
-                    android:textColor="#FF0000"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/btnAddCart4"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_cart"
-                    android:tint="#FFFFFF"
-                    android:background="@drawable/bg_cart_button"
-                    android:padding="6dp"
-                    android:contentDescription="Thêm vào giỏ" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </GridLayout>
-
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

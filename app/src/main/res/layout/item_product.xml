@@ -1,32 +1,71 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/bg_product_item"
-    android:padding="8dp"
-    android:layout_margin="4dp">
+    android:layout_margin="6dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <ImageView
-        android:id="@+id/imgProduct"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"
-         />
-
-    <TextView
-        android:id="@+id/txtProductName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tên sản phẩm"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:paddingTop="4dp" />
+        android:orientation="vertical"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/txtProductPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="₫ 1.000.000"
-        android:textColor="#E91E63"
-        android:textSize="14sp" />
-</LinearLayout>
+        <!-- Hình sản phẩm -->
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/image_border" />
+
+        <!-- Hàng tên + giá + icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="6dp">
+
+            <!-- Nhóm tên + giá -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/productName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tên sản phẩm"
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/productPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100.000₫"
+                    android:textSize="14sp"
+                    android:textColor="#E91E63"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Icon giỏ hàng -->
+            <ImageView
+                android:id="@+id/btnAddToCart"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_cart"
+                android:background="@drawable/bg_cart_button"
+                android:padding="4dp"
+                android:contentDescription="Thêm vào giỏ hàng"
+                app:tint="@android:color/black" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
